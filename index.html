@@ -1,36 +1,37 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <link href="poker-style.css" rel="stylesheet">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>德州扑克：深度历史与全景解析</title>
+  <!-- 引入外部资源 -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- Tailwind 主题配置 -->
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
             poker: {
-              green: '#0F5132',
-              dark: '#1A2421',
-              gold: '#D4AF37',
-              cream: '#F5F1E4',
-              red: '#A62424'
+              green: '#0F5132', // 扑克桌布绿
+              dark: '#1A2421',  // 深色文字
+              gold: '#D4AF37',  // 金色装饰
+              cream: '#F5F1E4', // 米白背景
+              red: '#A62424'    // 红色强调
             }
           },
           fontFamily: {
             sans: ['Inter', 'system-ui', 'sans-serif'],
-            serif: ['Merriweather', 'Georgia', 'serif']
           },
           backgroundImage: {
-            'poker-pattern': "url('https://picsum.photos/id/218/1200/800')",
+            'poker-hero': "url('https://picsum.photos/id/1070/1920/1080')", // 英雄区背景
           }
         }
       }
     }
-     </script>
+  </script>
+  <!-- 自定义样式 -->
   <style type="text/tailwindcss">
     @layer utilities {
       .text-shadow {
@@ -41,7 +42,7 @@
       }
       .card-hover:hover {
         transform: translateY(-5px);
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
       }
       .scrollbar-hide::-webkit-scrollbar {
         display: none;
@@ -50,462 +51,365 @@
         -ms-overflow-style: none;
         scrollbar-width: none;
       }
-      .animate-float {
-        animation: float 6s ease-in-out infinite;
-      }
-      @keyframes float {
-        0% { transform: translateY(0px); }
-        50% { transform: translateY(-15px); }
-        100% { transform: translateY(0px); }
-      }
     }
   </style>
 </head>
 <body class="bg-poker-cream text-poker-dark font-sans">
-  <!-- 导航栏 -->
-  <header class="fixed w-full bg-poker-dark/95 text-white z-50 transition-all duration-300" id="navbar">
-    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-      <div class="flex items-center space-x-2">
-        <i class="fa fa-playing-card text-poker-gold text-2xl"></i>
-        <h1 class="text-xl font-bold">德州扑克解析</h1>
+  <!-- 导航栏（固定顶部，含制作人信息） -->
+  <header class="fixed w-full bg-white/95 shadow-md z-50 transition-all duration-300">
+    <div class="container mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center">
+      <!-- 左上角：制作人信息 + 标题 -->
+      <div class="flex flex-col md:flex-row items-start md:items-center space-y-1 md:space-y-0 md:space-x-4 mb-3 md:mb-0">
+        <div class="text-poker-gold font-medium text-sm md:text-base">
+          制作人：2211231041 柯智扬
+        </div>
+        <div class="flex items-center space-x-2">
+          <i class="fa fa-playing-card text-poker-green text-2xl"></i>
+          <h1 class="text-xl md:text-2xl font-bold">德州扑克解析</h1>
+        </div>
       </div>
-      
-      <!-- 桌面导航 -->
+      <!-- 导航菜单 -->
       <nav class="hidden md:flex space-x-6">
-        <a href="#history" class="hover:text-poker-gold transition-colors">发展历史</a>
-        <a href="#rules" class="hover:text-poker-gold transition-colors">核心规则</a>
-        <a href="#tournaments" class="hover:text-poker-gold transition-colors">赛事体系</a>
-        <a href="#strategy" class="hover:text-poker-gold transition-colors">进阶策略</a>
+        <a href="#history" class="hover:text-poker-green transition-colors font-medium">发展历史</a>
+        <a href="#rules" class="hover:text-poker-green transition-colors font-medium">核心规则</a>
+        <a href="#tournaments" class="hover:text-poker-green transition-colors font-medium">赛事与文化</a>
+        <a href="#strategy" class="hover:text-poker-green transition-colors font-medium">进阶策略</a>
       </nav>
-      
       <!-- 移动端菜单按钮 -->
-      <button class="md:hidden text-white focus:outline-none" id="menuBtn">
+      <button class="md:hidden text-poker-dark focus:outline-none" id="menuBtn">
         <i class="fa fa-bars text-xl"></i>
       </button>
     </div>
-    
     <!-- 移动端导航菜单 -->
-    <div class="md:hidden hidden bg-poker-dark/95 absolute w-full" id="mobileMenu">
-      <div class="container mx-auto px-4 py-3 flex flex-col space-y-4">
-        <a href="#history" class="hover:text-poker-gold transition-colors py-2 border-b border-gray-700">发展历史</a>
-        <a href="#rules" class="hover:text-poker-gold transition-colors py-2 border-b border-gray-700">核心规则</a>
-        <a href="#tournaments" class="hover:text-poker-gold transition-colors py-2 border-b border-gray-700">赛事体系</a>
-        <a href="#strategy" class="hover:text-poker-gold transition-colors py-2">进阶策略</a>
+    <div class="md:hidden hidden bg-white w-full" id="mobileMenu">
+      <div class="container mx-auto px-4 py-3 flex flex-col space-y-3">
+        <a href="#history" class="hover:text-poker-green transition-colors py-2 border-b border-gray-100">发展历史</a>
+        <a href="#rules" class="hover:text-poker-green transition-colors py-2 border-b border-gray-100">核心规则</a>
+        <a href="#tournaments" class="hover:text-poker-green transition-colors py-2 border-b border-gray-100">赛事与文化</a>
+        <a href="#strategy" class="hover:text-poker-green transition-colors py-2">进阶策略</a>
       </div>
     </div>
   </header>
 
-  <!-- 英雄区域 -->
-  <section class="relative h-screen flex items-center justify-center overflow-hidden">
-    <div class="absolute inset-0 bg-poker-pattern bg-cover bg-center opacity-40"></div>
-    <div class="absolute inset-0 bg-gradient-to-b from-poker-dark/80 to-poker-dark/40"></div>
-    
+  <!-- 英雄区（全屏背景 + 主标题） -->
+  <section class="relative h-screen flex items-center justify-center overflow-hidden pt-16">
+    <div class="absolute inset-0 bg-poker-hero bg-cover bg-center opacity-40"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-poker-dark/70 to-poker-dark/30"></div>
     <div class="container mx-auto px-4 z-10 text-center">
-      <h1 class="text-[clamp(2rem,5vw,4rem)] font-bold text-white mb-6 leading-tight text-shadow animate-float">
+      <h1 class="text-[clamp(2rem,5vw,4rem)] font-bold text-white mb-6 leading-tight text-shadow">
         德州扑克：<br class="md:hidden">深度历史与全景解析
       </h1>
       <p class="text-[clamp(1rem,2vw,1.25rem)] text-poker-cream/90 max-w-3xl mx-auto mb-10">
         从民间消遣到全球竞技，探索这项融合策略、心理与概率的智力运动
       </p>
-      <a href="#history" class="inline-block bg-poker-green hover:bg-poker-green/80 text-white font-medium px-8 py-3 rounded-full transition-all duration-300 shadow-lg hover:shadow-poker-gold/20">
+      <a href="#history" class="inline-block bg-poker-green hover:bg-poker-green/80 text-white font-medium px-8 py-3 rounded-full transition-all duration-300 shadow-lg">
         开始探索 <i class="fa fa-chevron-down ml-2"></i>
       </a>
     </div>
-    
-    <!-- 装饰性扑克牌元素 -->
-    <div class="absolute -bottom-10 -left-10 w-64 h-80 opacity-20 rotate-12 animate-float" style="animation-delay: 1s">
-      <img src="https://picsum.photos/id/1070/300/400" alt="扑克牌装饰" class="w-full h-full object-cover rounded-lg">
-    </div>
-    <div class="absolute -top-10 -right-10 w-64 h-80 opacity-20 -rotate-12 animate-float" style="animation-delay: 2s">
+    <!-- 装饰性扑克牌 -->
+    <div class="absolute -bottom-12 -left-12 w-64 h-80 opacity-20 rotate-12 hidden md:block">
       <img src="https://picsum.photos/id/1069/300/400" alt="扑克牌装饰" class="w-full h-full object-cover rounded-lg">
+    </div>
+    <div class="absolute -top-12 -right-12 w-64 h-80 opacity-20 -rotate-12 hidden md:block">
+      <img src="https://picsum.photos/id/1068/300/400" alt="扑克牌装饰" class="w-full h-full object-cover rounded-lg">
     </div>
   </section>
 
-  <!-- 发展历史部分 -->
+  <!-- 一、发展历史：从民间消遣到全球竞技 -->
   <section id="history" class="py-20 bg-white">
     <div class="container mx-auto px-4">
       <div class="text-center mb-16">
-        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-poker-dark mb-4">发展历史</h2>
-        <p class="text-gray-600 max-w-3xl mx-auto">从民间消遣到全球竞技，德州扑克的演变历程跨越数百年，融合了不同文化与时代的印记</p>
-        <div class="w-24 h-1 bg-poker-gold mx-auto mt-6"></div>
+        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-poker-dark mb-4">一、发展历史：从民间消遣到全球竞技</h2>
+        <div class="w-24 h-1 bg-poker-gold mx-auto mt-6 mb-8"></div>
+        <p class="text-gray-600 max-w-3xl mx-auto">跨越数百年的演变，德州扑克从欧洲纸牌游戏逐渐发展为全球流行的智力竞技项目</p>
       </div>
-      
-      <!-- 时间线 -->
-      <div class="relative">
-        <!-- 时间线中轴线 -->
-        <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-poker-green/20"></div>
-        
-        <!-- 时间点1 -->
-        <div class="relative mb-20">
-          <div class="flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-8 md:mt-0">
-              <h3 class="text-xl font-bold text-poker-dark mb-3">起源争议与早期演变 (1600s-1910s)</h3>
-              <p class="text-gray-600 mb-4">
-                德州扑克的基因可追溯至数百年前的欧洲纸牌游戏，其名称"Poker"源自法语"poque"，而法语单词又衍生自德语"pochen"。
-              </p>
-              <p class="text-gray-600">
-                有据可考的现代雏形出现在1829年的美国新奥尔良州，当时仅使用20张牌，是当地流行的消遣方式。1834年，职业扑克玩家乔纳森·格林在《作弊的游戏》中首次将其正式命名为"扑克"。
-              </p>
-            </div>
-            
-            <div class="absolute left-1/2 transform -translate-x-1/2 w-10 h-10 rounded-full bg-poker-gold flex items-center justify-center z-10 order-1 md:order-2">
-              <i class="fa fa-history text-white"></i>
-            </div>
-            
-            <div class="md:w-1/2 md:pl-12 hidden md:block order-3">
-              <img src="https://picsum.photos/id/1059/600/400" alt="早期扑克游戏" class="rounded-lg shadow-lg w-full h-64 object-cover card-hover">
-            </div>
-          </div>
+
+      <!-- （一）起源争议与早期演变（1600s-1910s） -->
+      <div class="mb-20 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+        <div class="order-2 md:order-1">
+          <h3 class="text-xl md:text-2xl font-bold text-poker-dark mb-6">（一）起源争议与早期演变（1600s-1910s）</h3>
+          <p class="text-gray-700 mb-4">
+            德州扑克的基因可追溯至数百年前的欧洲纸牌游戏，其名称“Poker”源自法语“poque”，而法语单词又衍生自德语“pochen”。学界普遍认为，它与文艺复兴时期的“primero”、法国的“brelan”游戏系出同源，英国早期游戏“brag”中加入的“诈唬”元素更成为其核心玩法的雏形。此外，波斯纸牌游戏“As-Nas”通过中东水手传入美洲，也为其规则成型提供了参照。
+          </p>
+          <p class="text-gray-700">
+            有据可考的现代雏形出现在1829年的美国新奥尔良州，当时仅使用20张牌，是当地流行的消遣方式。1834年，职业扑克玩家乔纳森·格林在《作弊的游戏》中首次将其正式命名为“扑克”，并记录了早期玩法。19世纪中期，随着密西西比河航运和西部淘金热的兴起，游戏传播至美国西部，逐渐改用52张标准牌，美国南北战争更让其成为士兵间的流行娱乐，奠定了全国性游戏的基础。
+          </p>
         </div>
-        
-        <!-- 时间点2 -->
-        <div class="relative mb-20">
-          <div class="flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 md:pr-12 hidden md:block order-1">
-              <img src="https://picsum.photos/id/1060/600/400" alt="德州扑克规则定型" class="rounded-lg shadow-lg w-full h-64 object-cover card-hover">
-            </div>
-            
-            <div class="absolute left-1/2 transform -translate-x-1/2 w-10 h-10 rounded-full bg-poker-gold flex items-center justify-center z-10 order-2">
-              <i class="fa fa-book text-white"></i>
-            </div>
-            
-            <div class="md:w-1/2 md:pl-12 order-3 mt-8 md:mt-0">
-              <h3 class="text-xl font-bold text-poker-dark mb-3">规则定型与地域扩散 (1920s-1960s)</h3>
-              <p class="text-gray-600 mb-4">
-                1920年左右，德克萨斯州赌徒布朗迪·福布斯在罗布斯镇制定了现代德州扑克的核心规则——引入"两张底牌+五张公共牌"的组合机制，这一创新让游戏兼具策略性与观赏性。
-              </p>
-              <p class="text-gray-600">
-                1925年，该玩法传入德克萨斯州达拉斯市，在牛仔、矿工和商人中迅速普及，当时还被简单称为"扑克"，后经玩家提议更名以凸显地域特色。
-              </p>
-            </div>
-          </div>
+        <div class="order-1 md:order-2">
+          <img src="https://picsum.photos/id/1059/600/400" alt="早期纸牌游戏" class="w-full h-80 object-cover rounded-xl shadow-lg card-hover">
         </div>
-        
-        <!-- 时间点3 -->
-        <div class="relative mb-20">
-          <div class="flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1 mt-8 md:mt-0">
-              <h3 class="text-xl font-bold text-poker-dark mb-3">赌场崛起与赛事奠基 (1960s-1990s)</h3>
-              <p class="text-gray-600 mb-4">
-                1967年，多伊尔·布朗森、Amarillo Slim等德州扑克高手将玩法引入拉斯维加斯，迅速获得赌场青睐。1970年，拉斯维加斯马蹄铁赌场老板奔尼·比尼恩创办首届"世界扑克系列赛（WSOP）"。
-              </p>
-              <p class="text-gray-600">
-                这一时期诞生了首位华裔冠军陈强尼（Johnny Chan），他在1987-1988年实现WSOP主赛事两连冠，成为亚裔玩家的标杆。
-              </p>
-            </div>
-            
-            <div class="absolute left-1/2 transform -translate-x-1/2 w-10 h-10 rounded-full bg-poker-gold flex items-center justify-center z-10 order-1 md:order-2">
-              <i class="fa fa-trophy text-white"></i>
-            </div>
-            
-            <div class="md:w-1/2 md:pl-12 hidden md:block order-3">
-              <img src="https://picsum.photos/id/1062/600/400" alt="世界扑克系列赛" class="rounded-lg shadow-lg w-full h-64 object-cover card-hover">
-            </div>
-          </div>
+      </div>
+
+      <!-- （二）规则定型与地域扩散（1920s-1960s） -->
+      <div class="mb-20 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+        <div>
+          <img src="https://picsum.photos/id/1060/600/400" alt="德州扑克发源地" class="w-full h-80 object-cover rounded-xl shadow-lg card-hover">
         </div>
-        
-        <!-- 时间点4 -->
-        <div class="relative">
-          <div class="flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 md:pr-12 hidden md:block order-1">
-              <img src="https://picsum.photos/id/1071/600/400" alt="德州扑克全球化" class="rounded-lg shadow-lg w-full h-64 object-cover card-hover">
-            </div>
-            
-            <div class="absolute left-1/2 transform -translate-x-1/2 w-10 h-10 rounded-full bg-poker-gold flex items-center justify-center z-10 order-2">
-              <i class="fa fa-globe text-white"></i>
-            </div>
-            
-            <div class="md:w-1/2 md:pl-12 order-3 mt-8 md:mt-0">
-              <h3 class="text-xl font-bold text-poker-dark mb-3">技术革命与全球爆发 (2000s-至今)</h3>
-              <p class="text-gray-600 mb-4">
-                1998年，美国首个在线扑克平台Poker Planet成立，标志着德州扑克进入数字化时代。2002年，"底牌摄像头"技术在WSOP转播中启用，让观众获得"上帝视角"，彻底改变了赛事传播方式。
-              </p>
-              <p class="text-gray-600">
-                目前，德州扑克在全球拥有数以千万计的玩家，WSOP主赛事参赛人数已突破万人，奖池超过8000万美元。不同国家对其定性存在差异，中国明确禁止涉及现金交易的德州扑克活动。
-              </p>
-            </div>
-          </div>
+        <div>
+          <h3 class="text-xl md:text-2xl font-bold text-poker-dark mb-6">（二）规则定型与地域扩散（1920s-1960s）</h3>
+          <p class="text-gray-700 mb-4">
+            1920年左右，德克萨斯州赌徒布朗迪·福布斯在罗布斯镇（Robstown）制定了现代德州扑克的核心规则——引入“两张底牌+五张公共牌”的组合机制，这一创新让游戏兼具策略性与观赏性。德州立法部门后来正式认定罗布斯镇为德州扑克发源地。
+          </p>
+          <p class="text-gray-700">
+            1925年，该玩法传入德克萨斯州达拉斯市，在牛仔、矿工和商人中迅速普及，当时还被简单称为“扑克”，后经玩家提议更名以凸显地域特色。这一阶段的德州扑克仍局限于美国南部，玩法以线下现金局为主，规则在不同社群中略有差异，但“组合牌型决胜负”和“多轮下注”的核心框架已固定。
+          </p>
+        </div>
+      </div>
+
+      <!-- （三）赌场崛起与赛事奠基（1960s-1990s） -->
+      <div class="mb-20 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+        <div class="order-2 md:order-1">
+          <h3 class="text-xl md:text-2xl font-bold text-poker-dark mb-6">（三）赌场崛起与赛事奠基（1960s-1990s）</h3>
+          <p class="text-gray-700 mb-4">
+            1967年，多伊尔·布朗森、Amarillo Slim等德州扑克高手将玩法引入拉斯维加斯，迅速获得赌场青睐。1970年，拉斯维加斯马蹄铁赌场老板奔尼·比尼恩创办首届“世界扑克系列赛（WSOP）”，以无上限投注德州扑克为主赛事，冠军可获金手链，这一赛事成为全球扑克界的最高荣誉象征。
+          </p>
+          <p class="text-gray-700">
+            1980-1990年代，WSOP赛事规模逐年扩大，参赛费从最初的千美元级升至1万美元主赛事标准，奖池持续突破纪录。这一时期诞生了首位华裔冠军陈强尼（Johnny Chan），他在1987-1988年实现WSOP主赛事两连冠，成为亚裔玩家的标杆。同时，有限注、底池限制等下注规则变体逐渐成型，适应不同玩家的风险偏好。
+          </p>
+        </div>
+        <div class="order-1 md:order-2">
+          <img src="https://picsum.photos/id/1062/600/400" alt="拉斯维加斯赌场" class="w-full h-80 object-cover rounded-xl shadow-lg card-hover">
+        </div>
+      </div>
+
+      <!-- （四）技术革命与全球爆发（2000s-至今） -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+        <div>
+          <img src="https://picsum.photos/id/1071/600/400" alt="线上扑克平台" class="w-full h-80 object-cover rounded-xl shadow-lg card-hover">
+        </div>
+        <div>
+          <h3 class="text-xl md:text-2xl font-bold text-poker-dark mb-6">（四）技术革命与全球爆发（2000s-至今）</h3>
+          <p class="text-gray-700 mb-4">
+            1998年，美国首个在线扑克平台Poker Planet成立，尽管受限于网络速度，一年内仍斩获近10亿美元收入，标志着德州扑克进入数字化时代。2002年，“底牌摄像头”技术在WSOP转播中启用，让观众获得“上帝视角”，彻底改变了赛事传播方式。2003年，业余玩家克里斯·梅森通过86美元卫星赛晋级WSOP主赛事并夺冠，引发全球参与热潮。
+          </p>
+          <p class="text-gray-700">
+            目前，德州扑克在全球拥有数以千万计的玩家，WSOP主赛事参赛人数已突破万人，奖池超过8000万美元。不同国家对其定性存在差异：英国、法国等认定为“技巧性运动”，美国部分州则视为“赌博”，中国明确禁止涉及现金交易的德州扑克活动。
+          </p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 核心规则部分 -->
+  <!-- 二、核心规则：从道具到胜负判定的全维度解析 -->
   <section id="rules" class="py-20 bg-gray-50">
     <div class="container mx-auto px-4">
       <div class="text-center mb-16">
-        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-poker-dark mb-4">核心规则</h2>
-        <p class="text-gray-600 max-w-3xl mx-auto">从道具到胜负判定，全面解析德州扑克的游戏机制与规则体系</p>
-        <div class="w-24 h-1 bg-poker-gold mx-auto mt-6"></div>
+        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-poker-dark mb-4">二、核心规则：从道具到胜负判定的全维度解析</h2>
+        <div class="w-24 h-1 bg-poker-gold mx-auto mt-6 mb-8"></div>
+        <p class="text-gray-600 max-w-3xl mx-auto">严格的流程与明确的胜负规则，构成德州扑克的竞技基础</p>
       </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-        <!-- 基础设定 -->
-        <div class="bg-white rounded-xl shadow-lg p-8 card-hover">
-          <div class="flex items-center mb-6">
-            <div class="w-12 h-12 rounded-full bg-poker-green/10 flex items-center justify-center mr-4">
-              <i class="fa fa-cube text-poker-green text-xl"></i>
-            </div>
-            <h3 class="text-xl font-bold">基础设定</h3>
+
+      <!-- （一）基础设定：人数、牌具与核心目标 -->
+      <div class="mb-16 bg-white p-8 rounded-xl shadow-md">
+        <h3 class="text-xl md:text-2xl font-bold text-poker-dark mb-6">（一）基础设定：人数、牌具与核心目标</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="border-l-4 border-poker-green pl-4">
+            <h4 class="font-semibold text-lg mb-3">参与人数</h4>
+            <p class="text-gray-700">1张台面最少2人，最多可容纳22人，标准对局为2-10人，此时策略互动性最强。</p>
           </div>
-          
-          <div class="space-y-4">
-            <div>
-              <h4 class="font-semibold text-poker-dark mb-2">参与人数</h4>
-              <p class="text-gray-600">1张台面最少2人，最多可容纳22人，标准对局为2-10人，此时策略互动性最强。</p>
-            </div>
-            
-            <div>
-              <h4 class="font-semibold text-poker-dark mb-2">牌具规格</h4>
-              <p class="text-gray-600">使用一副去掉大小王的52张标准扑克牌，花色不分大小，点数从大到小依次为A、K、Q、J、10、9…2，其中A可作为顺子的"1"使用。</p>
-            </div>
-            
-            <div>
-              <h4 class="font-semibold text-poker-dark mb-2">核心目标</h4>
-              <p class="text-gray-600">通过组合个人底牌与公共牌形成最优牌型，赢取其他玩家投入"底池"的筹码，本质是"信息不对称下的策略博弈"。</p>
-            </div>
+          <div class="border-l-4 border-poker-green pl-4">
+            <h4 class="font-semibold text-lg mb-3">牌具规格</h4>
+            <p class="text-gray-700">使用一副去掉大小王的52张标准扑克牌，花色不分大小，点数从大到小依次为A、K、Q、J、10、9…2，其中A可作为顺子的“1”使用（如A-2-3-4-5为最小顺子）。</p>
+          </div>
+          <div class="border-l-4 border-poker-green pl-4">
+            <h4 class="font-semibold text-lg mb-3">核心目标</h4>
+            <p class="text-gray-700">通过组合个人底牌与公共牌形成最优牌型，赢取其他玩家投入“底池”的筹码，本质是“信息不对称下的策略博弈”。</p>
           </div>
         </div>
-        
-        <!-- 关键角色 -->
-        <div class="bg-white rounded-xl shadow-lg p-8 card-hover">
-          <div class="flex items-center mb-6">
-            <div class="w-12 h-12 rounded-full bg-poker-green/10 flex items-center justify-center mr-4">
-              <i class="fa fa-users text-poker-green text-xl"></i>
-            </div>
-            <h3 class="text-xl font-bold">关键角色与前置机制</h3>
+      </div>
+
+      <!-- （二）关键角色与前置机制 -->
+      <div class="mb-16 bg-white p-8 rounded-xl shadow-md">
+        <h3 class="text-xl md:text-2xl font-bold text-poker-dark mb-6">（二）关键角色与前置机制</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div>
+            <h4 class="font-semibold text-lg mb-3 flex items-center">
+              <i class="fa fa-user-circle text-poker-green mr-2"></i> 庄家（Button）
+            </h4>
+            <p class="text-gray-700">每局由不同玩家轮流担任，标识为圆形筹码，负责最后一个行动，拥有策略优势。庄家位置按顺时针方向逐局轮换。</p>
           </div>
-          
-          <div class="space-y-4">
-            <div>
-              <h4 class="font-semibold text-poker-dark mb-2">庄家（Button）</h4>
-              <p class="text-gray-600">每局由不同玩家轮流担任，标识为圆形筹码，负责最后一个行动，拥有策略优势。庄家位置按顺时针方向逐局轮换。</p>
-            </div>
-            
-            <div>
-              <h4 class="font-semibold text-poker-dark mb-2">盲注体系</h4>
-              <ul class="text-gray-600 list-disc pl-5 space-y-2">
-                <li><span class="font-medium">小盲注（Small Blind）：</span>位置紧邻庄家，下注额为最低筹码的一半</li>
-                <li><span class="font-medium">大盲注（Big Blind）：</span>小盲注左侧，下注额为最低筹码全额，通常是小盲注的2倍</li>
-              </ul>
-              <p class="text-gray-600 mt-2">盲注机制避免了"持弱牌者全程弃牌"的僵局，是推动游戏进行的核心设计。</p>
-            </div>
+          <div>
+            <h4 class="font-semibold text-lg mb-3 flex items-center">
+              <i class="fa fa-money text-poker-green mr-2"></i> 盲注体系
+            </h4>
+            <p class="text-gray-700 mb-2">庄家左手边两位玩家需强制下注，作为底池种子资金：</p>
+            <ul class="text-gray-700 list-disc pl-5 space-y-1">
+              <li>小盲注（Small Blind）：位置紧邻庄家，下注额为最低筹码的一半；</li>
+              <li>大盲注（Big Blind）：小盲注左侧，下注额为最低筹码全额，通常是小盲注的2倍。</li>
+            </ul>
+            <p class="text-gray-700 mt-2 text-sm italic">盲注机制避免了“持弱牌者全程弃牌”的僵局，是推动游戏进行的核心设计。</p>
           </div>
         </div>
-        
-        <!-- 发牌与下注流程 -->
-        <div class="bg-white rounded-xl shadow-lg p-8 card-hover md:col-span-2">
-          <div class="flex items-center mb-6">
-            <div class="w-12 h-12 rounded-full bg-poker-green/10 flex items-center justify-center mr-4">
-              <i class="fa fa-refresh text-poker-green text-xl"></i>
+      </div>
+
+      <!-- （三）发牌与下注流程：四轮博弈的完整闭环 -->
+      <div class="mb-16 bg-white p-8 rounded-xl shadow-md">
+        <h3 class="text-xl md:text-2xl font-bold text-poker-dark mb-6">（三）发牌与下注流程：四轮博弈的完整闭环</h3>
+        <p class="text-gray-700 mb-6">德州扑克对局分为四轮发牌和四轮下注，流程严格固定，每轮行动顺序按顺时针方向进行：</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- 翻牌前 -->
+          <div class="bg-gray-50 p-5 rounded-lg card-hover">
+            <div class="flex items-center mb-3">
+              <span class="w-8 h-8 rounded-full bg-poker-green text-white flex items-center justify-center mr-2">1</span>
+              <h4 class="font-semibold">翻牌前（Pre-Flop）</h4>
             </div>
-            <h3 class="text-xl font-bold">发牌与下注流程：四轮博弈的完整闭环</h3>
+            <ul class="text-gray-700 text-sm space-y-2">
+              <li><i class="fa fa-check text-poker-green mr-1"></i> 发2张面朝下的“底牌”（仅本人可见）；</li>
+              <li><i class="fa fa-check text-poker-green mr-1"></i> 从大盲注左侧玩家开始行动，可弃牌、跟注或加注；</li>
+              <li><i class="fa fa-check text-poker-green mr-1"></i> 无限注中加注最少为前一下注额的2倍。</li>
+            </ul>
           </div>
-          
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- 翻牌前 -->
-            <div class="border border-gray-100 rounded-lg p-5 bg-gray-50">
-              <div class="text-poker-green font-bold mb-3 flex items-center">
-                <span class="w-8 h-8 rounded-full bg-poker-green text-white flex items-center justify-center mr-2">1</span>
-                翻牌前（Pre-Flop）
-              </div>
-              <ul class="text-gray-600 text-sm space-y-2">
-                <li><i class="fa fa-check-circle text-poker-green mr-1"></i> 发2张面朝下的"底牌"</li>
-                <li><i class="fa fa-check-circle text-poker-green mr-1"></i> 从大盲注左侧玩家开始行动</li>
-                <li><i class="fa fa-check-circle text-poker-green mr-1"></i> 可选择弃牌、跟注或加注</li>
-              </ul>
+          <!-- 翻牌圈 -->
+          <div class="bg-gray-50 p-5 rounded-lg card-hover">
+            <div class="flex items-center mb-3">
+              <span class="w-8 h-8 rounded-full bg-poker-green text-white flex items-center justify-center mr-2">2</span>
+              <h4 class="font-semibold">翻牌圈（Flop）</h4>
             </div>
-            
-            <!-- 翻牌圈 -->
-            <div class="border border-gray-100 rounded-lg p-5 bg-gray-50">
-              <div class="text-poker-green font-bold mb-3 flex items-center">
-                <span class="w-8 h-8 rounded-full bg-poker-green text-white flex items-center justify-center mr-2">2</span>
-                翻牌圈（Flop）
-              </div>
-              <ul class="text-gray-600 text-sm space-y-2">
-                <li><i class="fa fa-check-circle text-poker-green mr-1"></i> 发出3张面朝上的"公共牌"</li>
-                <li><i class="fa fa-check-circle text-poker-green mr-1"></i> 从按钮位左侧玩家开始行动</li>
-                <li><i class="fa fa-check-circle text-poker-green mr-1"></i> 新增"过牌"选项</li>
-              </ul>
-            </div>
-            
-            <!-- 转牌圈 -->
-            <div class="border border-gray-100 rounded-lg p-5 bg-gray-50">
-              <div class="text-poker-green font-bold mb-3 flex items-center">
-                <span class="w-8 h-8 rounded-full bg-poker-green text-white flex items-center justify-center mr-2">3</span>
-                转牌圈（Turn）
-              </div>
-              <ul class="text-gray-600 text-sm space-y-2">
-                <li><i class="fa fa-check-circle text-poker-green mr-1"></i> 发出第4张公共牌</li>
-                <li><i class="fa fa-check-circle text-poker-green mr-1"></i> 流程与翻牌圈一致</li>
-                <li><i class="fa fa-check-circle text-poker-green mr-1"></i> 可结合2张底牌和4张公共牌预判</li>
-              </ul>
-            </div>
-            
-            <!-- 河牌圈 -->
-            <div class="border border-gray-100 rounded-lg p-5 bg-gray-50">
-              <div class="text-poker-green font-bold mb-3 flex items-center">
-                <span class="w-8 h-8 rounded-full bg-poker-green text-white flex items-center justify-center mr-2">4</span>
-                河牌圈（River）
-              </div>
-              <ul class="text-gray-600 text-sm space-y-2">
-                <li><i class="fa fa-check-circle text-poker-green mr-1"></i> 发出第5张（最后一张）公共牌</li>
-                <li><i class="fa fa-check-circle text-poker-green mr-1"></i> 最后一轮博弈</li>
-                <li><i class="fa fa-check-circle text-poker-green mr-1"></i> 基于完整7张牌做最终决策</li>
-              </ul>
-            </div>
+            <ul class="text-gray-700 text-sm space-y-2">
+              <li><i class="fa fa-check text-poker-green mr-1"></i> 切牌后发3张面朝上的“公共牌”；</li>
+              <li><i class="fa fa-check text-poker-green mr-1"></i> 从按钮位左侧玩家开始行动；</li>
+              <li><i class="fa fa-check text-poker-green mr-1"></i> 新增“过牌”选项（不投注，移交行动权）。</li>
+            </ul>
           </div>
-          
-          <!-- 摊牌阶段 -->
-          <div class="mt-6 p-5 bg-poker-green/5 rounded-lg border border-poker-green/20">
-            <h4 class="font-semibold text-poker-dark mb-2">摊牌（Showdown）</h4>
-            <p class="text-gray-600">
-              若四轮下注后仍有2名及以上玩家未弃牌，则进入摊牌阶段，玩家依次亮出底牌。从7张牌中选择5张组成最佳牌型，牌型等级高者赢取底池；若牌型相同，则比较牌点大小，如仍一致则平分底池。
-            </p>
+          <!-- 转牌圈 -->
+          <div class="bg-gray-50 p-5 rounded-lg card-hover">
+            <div class="flex items-center mb-3">
+              <span class="w-8 h-8 rounded-full bg-poker-green text-white flex items-center justify-center mr-2">3</span>
+              <h4 class="font-semibold">转牌圈（Turn）</h4>
+            </div>
+            <ul class="text-gray-700 text-sm space-y-2">
+              <li><i class="fa fa-check text-poker-green mr-1"></i> 切牌后发第4张公共牌；</li>
+              <li><i class="fa fa-check text-poker-green mr-1"></i> 行动流程与翻牌圈一致；</li>
+              <li><i class="fa fa-check text-poker-green mr-1"></i> 可结合2张底牌+4张公共牌预判牌型。</li>
+            </ul>
+          </div>
+          <!-- 河牌圈 + 摊牌 -->
+          <div class="bg-gray-50 p-5 rounded-lg card-hover">
+            <div class="flex items-center mb-3">
+              <span class="w-8 h-8 rounded-full bg-poker-green text-white flex items-center justify-center mr-2">4</span>
+              <h4 class="font-semibold">河牌圈+摊牌</h4>
+            </div>
+            <ul class="text-gray-700 text-sm space-y-2">
+              <li><i class="fa fa-check text-poker-green mr-1"></i> 切牌后发第5张公共牌；</li>
+              <li><i class="fa fa-check text-poker-green mr-1"></i> 最后一轮下注，基于7张牌决策；</li>
+              <li><i class="fa fa-check text-poker-green mr-1"></i> 摊牌时，最佳牌型者赢取底池。</li>
+            </ul>
           </div>
         </div>
-        
-        <!-- 下注类型 -->
-        <div class="bg-white rounded-xl shadow-lg p-8 card-hover">
-          <div class="flex items-center mb-6">
-            <div class="w-12 h-12 rounded-full bg-poker-green/10 flex items-center justify-center mr-4">
-              <i class="fa fa-money text-poker-green text-xl"></i>
-            </div>
-            <h3 class="text-xl font-bold">下注类型：三种核心玩法差异</h3>
+      </div>
+
+      <!-- （四）下注类型：三种核心玩法差异 -->
+      <div class="mb-16 bg-white p-8 rounded-xl shadow-md">
+        <h3 class="text-xl md:text-2xl font-bold text-poker-dark mb-6">（四）下注类型：三种核心玩法差异</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="border border-gray-200 rounded-lg p-5 card-hover">
+            <h4 class="font-semibold text-lg mb-3 text-poker-green">有限下注（Limit）</h4>
+            <p class="text-gray-700 text-sm mb-2">每轮下注额有固定上限，加注次数最多3次。以2-4有限注为例：</p>
+            <ul class="text-gray-700 text-sm list-disc pl-5 space-y-1">
+              <li>翻牌前/翻牌圈：最低下注2美元，加注+2美元；</li>
+              <li>转牌圈/河牌圈：最低下注4美元，加注+4美元。</li>
+            </ul>
+            <p class="text-gray-600 text-sm mt-3 italic">特点：风险可控，适合新手。</p>
           </div>
-          
-          <div class="space-y-5">
-            <div class="border-l-4 border-poker-green pl-4">
-              <h4 class="font-semibold text-poker-dark">有限下注（Limit）</h4>
-              <p class="text-gray-600 text-sm">每轮下注额有固定上限，且加注次数最多3次。风险可控，适合新手熟悉规则，策略重点在于牌型强弱判断。</p>
-            </div>
-            
-            <div class="border-l-4 border-poker-green pl-4">
-              <h4 class="font-semibold text-poker-dark">底池限制（Pot Limit）</h4>
-              <p class="text-gray-600 text-sm">每轮加注额不得超过当前底池总额（含已下注筹码），下注起步为大盲注额度。平衡了风险与刺激，策略核心是通过下注规模控制底池大小。</p>
-            </div>
-            
-            <div class="border-l-4 border-poker-green pl-4">
-              <h4 class="font-semibold text-poker-dark">无限下注（No-Limit）</h4>
-              <p class="text-gray-600 text-sm">下注额无上限，加注最少为前一下注额的2倍，玩家可随时"全下"。竞技性最强，是国际赛事的主流玩法，策略涵盖诈唬、读牌等高阶技巧。</p>
-            </div>
+          <div class="border border-gray-200 rounded-lg p-5 card-hover">
+            <h4 class="font-semibold text-lg mb-3 text-poker-green">底池限制（Pot Limit）</h4>
+            <p class="text-gray-700 text-sm mb-2">每轮加注额不得超过当前底池总额（含已下注筹码），下注起步为大盲注额度。</p>
+            <p class="text-gray-600 text-sm mt-3 italic">特点：平衡风险与刺激，核心是控制底池大小。</p>
+          </div>
+          <div class="border border-gray-200 rounded-lg p-5 card-hover">
+            <h4 class="font-semibold text-lg mb-3 text-poker-green">无限下注（No-Limit）</h4>
+            <p class="text-gray-700 text-sm mb-2">下注额无上限，加注最少为前一下注额的2倍，玩家可随时“全下”（投入全部剩余筹码）。</p>
+            <p class="text-gray-600 text-sm mt-3 italic">特点：竞技性最强，国际赛事主流玩法。</p>
           </div>
         </div>
-        
-        <!-- 牌型等级 -->
-        <div class="bg-white rounded-xl shadow-lg p-8 card-hover">
-          <div class="flex items-center mb-6">
-            <div class="w-12 h-12 rounded-full bg-poker-green/10 flex items-center justify-center mr-4">
-              <i class="fa fa-th text-poker-green text-xl"></i>
-            </div>
-            <h3 class="text-xl font-bold">牌型等级：10级排序</h3>
-          </div>
-          
-          <div class="overflow-y-auto max-h-96 scrollbar-hide pr-2">
-            <div class="space-y-3">
-              <div class="flex items-start">
-                <span class="w-6 h-6 rounded-full bg-poker-red text-white text-xs flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">1</span>
-                <div>
-                  <h4 class="font-semibold text-poker-dark">皇家同花顺</h4>
-                  <p class="text-gray-600 text-sm">同花色的A、K、Q、J、10，所有牌型中最大</p>
-                </div>
-              </div>
-              
-              <div class="flex items-start">
-                <span class="w-6 h-6 rounded-full bg-poker-red text-white text-xs flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">2</span>
-                <div>
-                  <h4 class="font-semibold text-poker-dark">同花顺</h4>
-                  <p class="text-gray-600 text-sm">同花色的五张连续牌，以最大牌点决胜</p>
-                </div>
-              </div>
-              
-              <div class="flex items-start">
-                <span class="w-6 h-6 rounded-full bg-poker-red text-white text-xs flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">3</span>
-                <div>
-                  <h4 class="font-semibold text-poker-dark">四条</h4>
-                  <p class="text-gray-600 text-sm">四张同点牌+一张单牌，比较四张同点牌的大小</p>
-                </div>
-              </div>
-              
-              <div class="flex items-start">
-                <span class="w-6 h-6 rounded-full bg-poker-red text-white text-xs flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">4</span>
-                <div>
-                  <h4 class="font-semibold text-poker-dark">葫芦</h4>
-                  <p class="text-gray-600 text-sm">三张同点牌+一对，先比三张同点牌大小</p>
-                </div>
-              </div>
-              
-              <div class="flex items-start">
-                <span class="w-6 h-6 rounded-full bg-poker-dark text-white text-xs flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">5</span>
-                <div>
-                  <h4 class="font-semibold text-poker-dark">同花</h4>
-                  <p class="text-gray-600 text-sm">五张同花色非连续牌，按牌点从大到小依次比较</p>
-                </div>
-              </div>
-              
-              <div class="flex items-start">
-                <span class="w-6 h-6 rounded-full bg-poker-dark text-white text-xs flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">6</span>
-                <div>
-                  <h4 class="font-semibold text-poker-dark">顺子</h4>
-                  <p class="text-gray-600 text-sm">五张非同花连续牌，以最大牌点决胜</p>
-                </div>
-              </div>
-              
-              <div class="flex items-start">
-                <span class="w-6 h-6 rounded-full bg-poker-dark text-white text-xs flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">7</span>
-                <div>
-                  <h4 class="font-semibold text-poker-dark">三条</h4>
-                  <p class="text-gray-600 text-sm">三张同点牌+两张单牌，先比三张同点牌</p>
-                </div>
-              </div>
-              
-              <div class="flex items-start">
-                <span class="w-6 h-6 rounded-full bg-gray-600 text-white text-xs flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">8</span>
-                <div>
-                  <h4 class="font-semibold text-poker-dark">两对</h4>
-                  <p class="text-gray-600 text-sm">两组对子+一张单牌，先比大对子，再比小对子</p>
-                </div>
-              </div>
-              
-              <div class="flex items-start">
-                <span class="w-6 h-6 rounded-full bg-gray-600 text-white text-xs flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">9</span>
-                <div>
-                  <h4 class="font-semibold text-poker-dark">一对</h4>
-                  <p class="text-gray-600 text-sm">一组对子+三张单牌，先比对子大小</p>
-                </div>
-              </div>
-              
-              <div class="flex items-start">
-                <span class="w-6 h-6 rounded-full bg-gray-600 text-white text-xs flex items-center justify-center mt-0.5 mr-3 flex-shrink-0">10</span>
-                <div>
-                  <h4 class="font-semibold text-poker-dark">高牌</h4>
-                  <p class="text-gray-600 text-sm">无任何组合的五张单牌，按牌点从大到小依次比较</p>
-                </div>
-              </div>
-            </div>
-          </div>
+      </div>
+
+      <!-- （五）牌型等级：10级排序与胜负规则 -->
+      <div class="bg-white p-8 rounded-xl shadow-md">
+        <h3 class="text-xl md:text-2xl font-bold text-poker-dark mb-6">（五）牌型等级：10级排序与胜负规则</h3>
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-poker-green/10">
+                <th class="p-3 border-b border-gray-200 w-16">等级</th>
+                <th class="p-3 border-b border-gray-200">牌型名称</th>
+                <th class="p-3 border-b border-gray-200">定义与胜负规则</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="hover:bg-gray-50">
+                <td class="p-3 border-b border-gray-200 font-medium text-poker-red">1</td>
+                <td class="p-3 border-b border-gray-200 font-medium">皇家同花顺</td>
+                <td class="p-3 border-b border-gray-200 text-gray-700">同花色A-K-Q-J-10，所有牌型中最大，出现概率约千万分之一。</td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="p-3 border-b border-gray-200 font-medium text-poker-red">2</td>
+                <td class="p-3 border-b border-gray-200 font-medium">同花顺</td>
+                <td class="p-3 border-b border-gray-200 text-gray-700">同花色五张连续牌（如K-Q-J-10-9），以最大牌点决胜（A-2-3-4-5为最小）。</td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="p-3 border-b border-gray-200 font-medium text-poker-red">3</td>
+                <td class="p-3 border-b border-gray-200 font-medium">四条</td>
+                <td class="p-3 border-b border-gray-200 text-gray-700">四张同点牌+一张单牌（如4-4-4-4-K），先比四张同点牌，再比单牌。</td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="p-3 border-b border-gray-200 font-medium text-poker-red">4</td>
+                <td class="p-3 border-b border-gray-200 font-medium">葫芦</td>
+                <td class="p-3 border-b border-gray-200 text-gray-700">三张同点牌+一对（如9-9-9-5-5），先比三张同点牌，再比对子。</td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="p-3 border-b border-gray-200 font-medium text-poker-dark">5</td>
+                <td class="p-3 border-b border-gray-200 font-medium">同花</td>
+                <td class="p-3 border-b border-gray-200 text-gray-700">五张同花色非连续牌（如A-K-9-5-2），按牌点从大到小依次比较。</td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="p-3 border-b border-gray-200 font-medium text-poker-dark">6</td>
+                <td class="p-3 border-b border-gray-200 font-medium">顺子</td>
+                <td class="p-3 border-b border-gray-200 text-gray-700">五张非同花连续牌（如10-9-8-7-6），以最大牌点决胜，A-2-3-4-5为特殊顺子。</td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="p-3 border-b border-gray-200 font-medium text-poker-dark">7</td>
+                <td class="p-3 border-b border-gray-200 font-medium">三条</td>
+                <td class="p-3 border-b border-gray-200 text-gray-700">三张同点牌+两张单牌（如7-7-7-K-2），先比三张同点牌，再依次比单牌。</td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="p-3 border-b border-gray-200 font-medium text-gray-600">8</td>
+                <td class="p-3 border-b border-gray-200 font-medium">两对</td>
+                <td class="p-3 border-b border-gray-200 text-gray-700">两组对子+一张单牌（如Q-Q-5-5-3），先比大对子，再比小对子，最后比单牌。</td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="p-3 border-b border-gray-200 font-medium text-gray-600">9</td>
+                <td class="p-3 border-b border-gray-200 font-medium">一对</td>
+                <td class="p-3 border-b border-gray-200 text-gray-700">一组对子+三张单牌（如J-J-A-10-6），先比对子大小，再依次比单牌。</td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="p-3 border-b border-gray-200 font-medium text-gray-600">10</td>
+                <td class="p-3 border-b border-gray-200 font-medium">高牌</td>
+                <td class="p-3 border-b border-gray-200 text-gray-700">无任何组合的五张单牌（如A-K-J-9-4），按牌点从大到小依次比较。</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 赛事体系部分 -->
+  <!-- 三、赛事体系与文化影响 -->
   <section id="tournaments" class="py-20 bg-white">
     <div class="container mx-auto px-4">
       <div class="text-center mb-16">
-        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-poker-dark mb-4">赛事体系与文化影响</h2>
-        <p class="text-gray-600 max-w-3xl mx-auto">从拉斯维加斯到全球各地，德州扑克赛事已形成成熟体系，同时也产生了广泛的文化影响</p>
-        <div class="w-24 h-1 bg-poker-gold mx-auto mt-6"></div>
+        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold text-poker-dark mb-4">三、赛事体系与文化影响</h2>
+        <div class="w-24 h-1 bg-poker-gold mx-auto mt-6 mb-8"></div>
+        <p class="text-gray-600 max-w-3xl mx-auto">从顶级赛事到文化符号，德州扑克的全球影响力持续扩展</p>
       </div>
-      
-      <!-- 顶级赛事 -->
+
+      <!-- （一）全球顶级赛事矩阵 -->
       <div class="mb-16">
-        <h3 class="text-2xl font-bold text-poker-dark mb-8 text-center">全球顶级赛事矩阵</h3>
-        
+        <h3 class="text-xl md:text-2xl font-bold text-poker-dark mb-8 text-center">（一）全球顶级赛事矩阵</h3>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <!-- WSOP -->
-          <div class="bg-gray-50 rounded-xl overflow-hidden shadow-lg card-hover">
-            <div class="h-48 overflow-hidden">
+          <div class="bg-gray-50 rounded-xl overflow-hidden shadow-md card-hover">
+            <div class="h-56 overflow-hidden">
               <img src="https://picsum.photos/id/1058/600/400" alt="世界扑克系列赛" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
             </div>
             <div class="p-6">
@@ -513,20 +417,17 @@
                 <h4 class="text-xl font-bold text-poker-dark">世界扑克系列赛</h4>
                 <span class="bg-poker-gold/10 text-poker-gold text-xs font-semibold px-3 py-1 rounded-full">WSOP</span>
               </div>
-              <p class="text-gray-600 text-sm mb-4">
-                创办于1970年，每年在拉斯维加斯举办，包含50余项不同玩法赛事，主赛事参赛费1万美元，冠军可获金手链和千万级奖金。
+              <p class="text-gray-700 text-sm mb-4">
+                创办于1970年，每年在拉斯维加斯举办，包含50余项不同玩法赛事，主赛事参赛费1万美元，冠军可获金手链和千万级奖金。华裔选手陈强尼、David Chiu曾获金手链。
               </p>
               <div class="text-gray-500 text-sm">
-                <p><i class="fa fa-calendar-o mr-1"></i> 每年举办</p>
-                <p><i class="fa fa-map-marker mr-1"></i> 拉斯维加斯</p>
-                <p><i class="fa fa-trophy mr-1"></i> 2023年奖池达9339万美元</p>
+                <p><i class="fa fa-trophy mr-1"></i> 2023年主赛事奖池达9339万美元</p>
               </div>
             </div>
           </div>
-          
           <!-- WPT -->
-          <div class="bg-gray-50 rounded-xl overflow-hidden shadow-lg card-hover">
-            <div class="h-48 overflow-hidden">
+          <div class="bg-gray-50 rounded-xl overflow-hidden shadow-md card-hover">
+            <div class="h-56 overflow-hidden">
               <img src="https://picsum.photos/id/1061/600/400" alt="世界扑克巡回赛" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
             </div>
             <div class="p-6">
@@ -534,20 +435,17 @@
                 <h4 class="text-xl font-bold text-poker-dark">世界扑克巡回赛</h4>
                 <span class="bg-poker-gold/10 text-poker-gold text-xs font-semibold px-3 py-1 rounded-full">WPT</span>
               </div>
-              <p class="text-gray-600 text-sm mb-4">
+              <p class="text-gray-700 text-sm mb-4">
                 2002年创办，采用巡回赛模式，在全球15个国家设站，中国三亚曾于2012年举办分站赛。赛事以电视转播为核心，注重娱乐性与观赏性。
               </p>
               <div class="text-gray-500 text-sm">
-                <p><i class="fa fa-calendar-o mr-1"></i> 全年巡回</p>
-                <p><i class="fa fa-map-marker mr-1"></i> 全球15国</p>
-                <p><i class="fa fa-television mr-1"></i> 全球电视转播</p>
+                <p><i class="fa fa-globe mr-1"></i> 覆盖全球15国的赛事网络</p>
               </div>
             </div>
           </div>
-          
           <!-- MBP -->
-          <div class="bg-gray-50 rounded-xl overflow-hidden shadow-lg card-hover">
-            <div class="h-48 overflow-hidden">
+          <div class="bg-gray-50 rounded-xl overflow-hidden shadow-md card-hover">
+            <div class="h-56 overflow-hidden">
               <img src="https://picsum.photos/id/1063/600/400" alt="澳门亿濠扑克赛事" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
             </div>
             <div class="p-6">
@@ -555,73 +453,66 @@
                 <h4 class="text-xl font-bold text-poker-dark">澳门亿濠扑克赛事</h4>
                 <span class="bg-poker-gold/10 text-poker-gold text-xs font-semibold px-3 py-1 rounded-full">MBP</span>
               </div>
-              <p class="text-gray-600 text-sm mb-4">
+              <p class="text-gray-700 text-sm mb-4">
                 2012年起举办，由澳门政府与WSOP联合发起，是亚洲顶级扑克赛事，旨在选拔中国选手参与国际竞争，菲尔·艾维等传奇选手曾担任代言人。
               </p>
               <div class="text-gray-500 text-sm">
-                <p><i class="fa fa-calendar-o mr-1"></i> 年度赛事</p>
-                <p><i class="fa fa-map-marker mr-1"></i> 中国澳门</p>
-                <p><i class="fa fa-star mr-1"></i> 亚洲顶级赛事</p>
+                <p><i class="fa fa-star mr-1"></i> 亚洲地区顶级扑克赛事</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-      
-      <!-- 文化影响 -->
-      <div>
-        <h3 class="text-2xl font-bold text-poker-dark mb-8 text-center">文化符号与社会争议</h3>
-        
-        <div class="bg-gray-50 rounded-xl p-8 shadow-lg">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="text-center">
-              <div class="w-16 h-16 rounded-full bg-poker-green/10 flex items-center justify-center mx-auto mb-4">
-                <i class="fa fa-language text-poker-green text-2xl"></i>
-              </div>
-              <h4 class="text-lg font-semibold mb-3">术语渗透</h4>
-              <p class="text-gray-600 text-sm">
-                "Bluff（诈唬）""All-in（全下）"等德州扑克术语已融入英语日常词汇，喻指"虚张声势""孤注一掷"等行为。
-              </p>
+
+      <!-- （二）文化符号与社会争议 -->
+      <div class="bg-gray-50 p-8 rounded-xl shadow-md">
+        <h3 class="text-xl md:text-2xl font-bold text-poker-dark mb-8 text-center">（二）文化符号与社会争议</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="text-center">
+            <div class="w-16 h-16 rounded-full bg-poker-green/10 flex items-center justify-center mx-auto mb-4">
+              <i class="fa fa-language text-poker-green text-2xl"></i>
             </div>
-            
-            <div class="text-center">
-              <div class="w-16 h-16 rounded-full bg-poker-green/10 flex items-center justify-center mx-auto mb-4">
-                <i class="fa fa-lightbulb-o text-poker-green text-2xl"></i>
-              </div>
-              <h4 class="text-lg font-semibold mb-3">策略价值</h4>
-              <p class="text-gray-600 text-sm">
-                被视为"智力竞技"的代表，其蕴含的概率计算、心理博弈与风险管理思维，被广泛应用于商业决策与投资领域。
-              </p>
+            <h4 class="text-lg font-semibold mb-3">术语渗透</h4>
+            <p class="text-gray-700">
+              “Bluff（诈唬）”“All-in（全下）”等德州扑克术语已融入英语日常词汇，喻指“虚张声势”“孤注一掷”等行为，成为跨文化交流的语言符号。
+            </p>
+          </div>
+          <div class="text-center">
+            <div class="w-16 h-16 rounded-full bg-poker-green/10 flex items-center justify-center mx-auto mb-4">
+              <i class="fa fa-lightbulb-o text-poker-green text-2xl"></i>
             </div>
-            
-            <div class="text-center">
-              <div class="w-16 h-16 rounded-full bg-poker-green/10 flex items-center justify-center mx-auto mb-4">
-                <i class="fa fa-gavel text-poker-green text-2xl"></i>
-              </div>
-              <h4 class="text-lg font-semibold mb-3">法律争议</h4>
-              <p class="text-gray-600 text-sm">
-                因易与赌博关联引发监管争议，中国明确规定"涉及现金投注或虚拟币变现的德州扑克活动属赌博行为"，组织者与参与者需承担法律责任。
-              </p>
+            <h4 class="text-lg font-semibold mb-3">策略价值</h4>
+            <p class="text-gray-700">
+              被视为“智力竞技”的代表，其蕴含的概率计算、心理博弈与风险管理思维，被广泛应用于商业决策与投资领域，成为高阶思维训练的载体。
+            </p>
+          </div>
+          <div class="text-center">
+            <div class="w-16 h-16 rounded-full bg-poker-green/10 flex items-center justify-center mx-auto mb-4">
+              <i class="fa fa-gavel text-poker-green text-2xl"></i>
             </div>
+            <h4 class="text-lg font-semibold mb-3">法律争议</h4>
+            <p class="text-gray-700">
+              因易与赌博关联引发监管争议，中国明确规定“涉及现金投注或虚拟币变现的德州扑克活动属赌博行为”，组织者与参与者需承担法律责任；英国、澳大利亚等国则认定其为“技巧性运动”。
+            </p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 进阶策略部分 -->
+  <!-- 四、进阶核心：策略与思维逻辑 -->
   <section id="strategy" class="py-20 bg-poker-dark text-white">
     <div class="container mx-auto px-4">
       <div class="text-center mb-16">
-        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-4">进阶核心：策略与思维逻辑</h2>
-        <p class="text-gray-300 max-w-3xl mx-auto">德州扑克的精髓在于"概率与心理的平衡"，长远来看，技巧对胜率的影响远大于运气</p>
-        <div class="w-24 h-1 bg-poker-gold mx-auto mt-6"></div>
+        <h2 class="text-[clamp(1.5rem,3vw,2.5rem)] font-bold mb-4">四、进阶核心：策略与思维逻辑</h2>
+        <div class="w-24 h-1 bg-poker-gold mx-auto mt-6 mb-8"></div>
+        <p class="text-gray-300 max-w-3xl mx-auto">德州扑克的精髓在于“概率与心理的平衡”，技巧是长期胜率的关键</p>
       </div>
-      
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-        <div class="bg-poker-dark/50 border border-gray-700 rounded-xl p-8 card-hover">
-          <h3 class="text-xl font-bold mb-6 text-poker-gold">核心策略要点</h3>
-          
+
+      <!-- 核心策略要点 -->
+      <div class="mb-16 grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div class="bg-poker-dark/50 border border-gray-700 rounded-xl p-8">
+          <h3 class="text-xl md:text-2xl font-bold mb-6 text-poker-gold">核心策略要点</h3>
           <div class="space-y-6">
             <div class="flex">
               <div class="flex-shrink-0 w-10 h-10 rounded-full bg-poker-gold/20 flex items-center justify-center mr-4">
@@ -630,11 +521,10 @@
               <div>
                 <h4 class="font-semibold mb-2">起手牌选择</h4>
                 <p class="text-gray-300 text-sm">
-                  1326种可能的底牌中，仅2.5%为强牌（如AA、KK、AK），弱牌（如2-7不同花）应尽早弃牌。
+                  1326种可能的底牌中，仅2.5%为强牌（如AA、KK、AK），弱牌（如2-7不同花）应尽早弃牌，避免在劣势局面消耗筹码。
                 </p>
               </div>
             </div>
-            
             <div class="flex">
               <div class="flex-shrink-0 w-10 h-10 rounded-full bg-poker-gold/20 flex items-center justify-center mr-4">
                 <i class="fa fa-check text-poker-gold"></i>
@@ -642,11 +532,10 @@
               <div>
                 <h4 class="font-semibold mb-2">位置利用</h4>
                 <p class="text-gray-300 text-sm">
-                  按钮位等后置位置可观察他人行动后决策，应更积极参与下注。
+                  按钮位、 cutoff位等后置位置可观察他人行动后决策，应更积极参与下注；小盲注、大盲注等前置位置需更谨慎，仅用强牌入局。
                 </p>
               </div>
             </div>
-            
             <div class="flex">
               <div class="flex-shrink-0 w-10 h-10 rounded-full bg-poker-gold/20 flex items-center justify-center mr-4">
                 <i class="fa fa-check text-poker-gold"></i>
@@ -654,11 +543,10 @@
               <div>
                 <h4 class="font-semibold mb-2">读牌与诈唬</h4>
                 <p class="text-gray-300 text-sm">
-                  通过对手下注节奏、筹码量变化判断其牌型强度，适时通过诈唬迫使强牌弃牌。
+                  通过对手下注节奏、筹码量变化、思考时间判断其牌型强度，在占据位置优势或公共牌结构有利时，适时通过诈唬迫使强牌弃牌。
                 </p>
               </div>
             </div>
-            
             <div class="flex">
               <div class="flex-shrink-0 w-10 h-10 rounded-full bg-poker-gold/20 flex items-center justify-center mr-4">
                 <i class="fa fa-check text-poker-gold"></i>
@@ -666,41 +554,79 @@
               <div>
                 <h4 class="font-semibold mb-2">资金管理</h4>
                 <p class="text-gray-300 text-sm">
-                  避免因单次"全下"耗尽筹码，锦标赛中需根据盲注增长调整策略。
+                  避免因单次“全下”耗尽筹码，建议单次买入不超过总资金的1-5%；锦标赛中需根据盲注增长调整策略，后期需更激进争夺底池。
                 </p>
               </div>
             </div>
           </div>
         </div>
-        
-        <div class="bg-poker-dark/50 border border-gray-700 rounded-xl p-8 card-hover">
-          <h3 class="text-xl font-bold mb-6 text-poker-gold">重要提示</h3>
-          
+
+        <!-- 法律提示与总结 -->
+        <div class="bg-poker-dark/50 border border-gray-700 rounded-xl p-8">
+          <h3 class="text-xl md:text-2xl font-bold mb-6 text-poker-gold">法律提示与核心总结</h3>
           <div class="bg-poker-red/20 border border-poker-red/40 rounded-lg p-6 mb-6">
             <div class="flex items-start">
               <i class="fa fa-exclamation-triangle text-poker-red text-2xl mr-4 mt-1"></i>
               <div>
-                <h4 class="font-semibold text-white mb-2">法律与责任提示</h4>
+                <h4 class="font-semibold mb-2">中国法律明确提示</h4>
                 <p class="text-gray-300 text-sm">
-                  在中国，任何涉及真实货币交易的德州扑克活动均涉嫌违法，可能违反《中华人民共和国治安管理处罚法》和《中华人民共和国刑法》相关规定，组织者与参与者需承担相应法律责任。
+                  任何涉及真实货币交易、虚拟币变现或物质奖励的德州扑克活动，均涉嫌违反《中华人民共和国治安管理处罚法》和《中华人民共和国刑法》，组织者与参与者需承担相应法律责任。
                 </p>
               </div>
             </div>
           </div>
-          
           <p class="text-gray-300 mb-4">
-            作为一项兼具竞技性与观赏性的智力运动，德州扑克的魅力在于每一局都充满未知性，而长期胜率始终向"懂概率、善决策"的玩家倾斜。
+            作为一项兼具竞技性与观赏性的智力运动，德州扑克的魅力在于每一局都充满未知性，而长期胜率始终向“懂概率、善决策”的玩家倾斜。
           </p>
-          
           <p class="text-gray-300">
-            建议以纯娱乐和智力锻炼为目的参与德州扑克活动，远离任何形式的赌博行为，遵守国家法律法规和社会公序良俗。
+            建议以纯娱乐和智力锻炼为目的参与德州扑克活动，远离任何形式的赌博行为，遵守国家法律法规和社会公序良俗，享受策略博弈本身的乐趣。
           </p>
+        </div>
+      </div>
+
+      <!-- 策略图示（辅助理解） -->
+      <div class="bg-poker-dark/50 border border-gray-700 rounded-xl p-8">
+        <h3 class="text-xl font-bold mb-6 text-poker-gold text-center">起手牌选择概率参考</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div>
+            <img src="https://picsum.photos/id/1067/600/400" alt="起手牌概率图示" class="w-full h-auto rounded-lg shadow-lg">
+          </div>
+          <div class="text-gray-300">
+            <p class="mb-4">
+              德州扑克的起手牌强度直接决定了后续决策的基础，以下为常见起手牌的胜率参考（与随机对手对抗）：
+            </p>
+            <ul class="space-y-3 text-sm">
+              <li class="flex justify-between">
+                <span>AA（口袋一对A）：</span>
+                <span class="text-poker-gold font-medium">85-88% 胜率</span>
+              </li>
+              <li class="flex justify-between">
+                <span>KK（口袋一对K）：</span>
+                <span class="text-poker-gold font-medium">80-83% 胜率</span>
+              </li>
+              <li class="flex justify-between">
+                <span>AK（大小王）：</span>
+                <span class="text-poker-gold font-medium">65-68% 胜率</span>
+              </li>
+              <li class="flex justify-between">
+                <span>QJ（同花）：</span>
+                <span class="text-poker-gold font-medium">55-58% 胜率</span>
+              </li>
+              <li class="flex justify-between">
+                <span>2-7（不同花）：</span>
+                <span class="text-poker-gold font-medium">40-42% 胜率</span>
+              </li>
+            </ul>
+            <p class="mt-4 text-xs italic">
+              注：胜率基于长期数据统计，实际对局中需结合位置、对手风格等因素调整。
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 页脚 -->
+  <!-- 页脚（含版权信息） -->
   <footer class="bg-poker-dark border-t border-gray-800 py-10 text-gray-400">
     <div class="container mx-auto px-4">
       <div class="flex flex-col md:flex-row justify-between items-center">
@@ -708,11 +634,12 @@
           <i class="fa fa-playing-card text-poker-gold text-2xl mr-2"></i>
           <span class="font-bold text-white">德州扑克：深度历史与全景解析</span>
         </div>
-        
         <div class="text-sm text-center md:text-right">
-          <p>本网站仅提供德州扑克的历史、规则和策略知识介绍</p>
-          <p class="mt-1">提醒：请遵守国家法律法规，远离赌博行为</p>
-          <p class="mt-3">&copy; 2211231041柯智扬 | 版权所有</p>
+          <p class="text-poker-gold font-medium">制作人：2211231041 柯智扬</p>
+          <p class="mt-1">© 2025 版权归柯智扬所有 | 仅用于知识分享</p>
+          <p class="mt-2 text-xs">
+            郑重声明：本网站仅提供德州扑克知识介绍，不鼓励任何形式的赌博行为，请勿违反国家法律法规
+          </p>
         </div>
       </div>
     </div>
@@ -723,18 +650,17 @@
     <i class="fa fa-chevron-up"></i>
   </button>
 
+  <!-- 交互脚本 -->
   <script>
     // 移动端菜单切换
     const menuBtn = document.getElementById('menuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
-    
     menuBtn.addEventListener('click', () => {
       mobileMenu.classList.toggle('hidden');
     });
-    
+
     // 导航栏滚动效果
-    const navbar = document.getElementById('navbar');
-    
+    const navbar = document.querySelector('header');
     window.addEventListener('scroll', () => {
       if (window.scrollY > 50) {
         navbar.classList.add('py-2', 'shadow-lg');
@@ -744,10 +670,9 @@
         navbar.classList.remove('py-2', 'shadow-lg');
       }
     });
-    
+
     // 返回顶部按钮
     const backToTopBtn = document.getElementById('backToTop');
-    
     window.addEventListener('scroll', () => {
       if (window.scrollY > 500) {
         backToTopBtn.classList.remove('opacity-0', 'invisible');
@@ -757,27 +682,21 @@
         backToTopBtn.classList.remove('opacity-100', 'visible');
       }
     });
-    
     backToTopBtn.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-    
-    // 平滑滚动
+
+    // 平滑滚动（锚点跳转）
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        
-        // 关闭移动菜单（如果打开）
+        // 关闭移动端菜单
         if (!mobileMenu.classList.contains('hidden')) {
           mobileMenu.classList.add('hidden');
         }
-        
+        // 跳转至目标位置（偏移导航栏高度）
         const targetId = this.getAttribute('href');
         const targetElement = document.querySelector(targetId);
-        
         if (targetElement) {
           window.scrollTo({
             top: targetElement.offsetTop - 80,
@@ -785,26 +704,6 @@
           });
         }
       });
-    });
-    
-    // 内容淡入动画
-    const observerOptions = {
-      threshold: 0.1
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('opacity-100', 'translate-y-0');
-          entry.target.classList.remove('opacity-0', 'translate-y-10');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, observerOptions);
-    
-    document.querySelectorAll('section > div > div:not(.text-center)').forEach(section => {
-      section.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
-      observer.observe(section);
     });
   </script>
 </body>
