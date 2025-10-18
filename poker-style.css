@@ -1,21 +1,5 @@
-/* 引入外部资源 */
+/* 导入外部资源 */
 @import url('https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css');
-
-/* Tailwind 配置扩展（实际项目中需配合Tailwind配置文件使用） */
-:root {
-  --poker-green: #0F5132;
-  --poker-dark: #1A2421;
-  --poker-gold: #D4AF37;
-  --poker-cream: #F5F1E4;
-  --poker-red: #A62424;
-}
-
-/* 基础样式 */
-body {
-  font-family: 'Inter', system-ui, sans-serif;
-  background-color: var(--poker-cream);
-  color: var(--poker-dark);
-}
 
 /* 自定义工具类 */
 .text-shadow {
@@ -28,7 +12,7 @@ body {
 
 .card-hover:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
 .scrollbar-hide::-webkit-scrollbar {
@@ -40,72 +24,121 @@ body {
   scrollbar-width: none;
 }
 
-/* 动画效果 */
-.animate-float {
-  animation: float 6s ease-in-out infinite;
+/* 主题颜色变量 */
+:root {
+  --poker-green: #0F5132;
+  --poker-dark: #1A2421;
+  --poker-gold: #D4AF37;
+  --poker-cream: #F5F1E4;
+  --poker-red: #A62424;
+  --font-sans: 'Inter', system-ui, sans-serif;
 }
 
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-15px); }
-  100% { transform: translateY(0px); }
+/* 基础样式扩展 */
+body {
+  font-family: var(--font-sans);
+  background-color: var(--poker-cream);
+  color: var(--poker-dark);
 }
 
-/* 响应式调整 */
+/* 响应式字体配置 */
 @media (max-width: 768px) {
-  .md\:hidden {
-    display: none;
-  }
-  
-  .md\:flex {
-    display: flex;
-  }
-  
-  .md\:grid-cols-2 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .text-[clamp(1.5rem,3vw,2.5rem)] {
+    font-size: clamp(1.5rem, 5vw, 2rem);
   }
 }
 
-@media (min-width: 768px) {
-  .hidden {
-    display: none;
-  }
-  
-  .md\:block {
-    display: block;
-  }
-  
-  .md\:grid-cols-2 {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  
-  .md\:grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-  
-  .md\:grid-cols-4 {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
+/* 背景图片配置 */
+.bg-poker-hero {
+  background-image: url('https://picsum.photos/id/1070/1920/1080');
+  background-size: cover;
+  background-position: center;
 }
 
-/* 组件样式补充 */
-#navbar {
+/* 自定义动画效果 */
+.transition-all {
   transition: all 0.3s ease;
 }
 
-#backToTop {
-  transition: all 0.3s ease;
+/* 导航栏滚动效果 */
+.header-scrolled {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-section > div > div:not(.text-center) {
-  transition: all 1s ease;
+/* 按钮样式增强 */
+.btn-primary {
+  background-color: var(--poker-green);
+  color: white;
+  transition: background-color 0.3s ease;
 }
 
-/* 卡片图片悬停效果 */
-.card-hover img {
+.btn-primary:hover {
+  background-color: rgba(15, 81, 50, 0.8);
+}
+
+/* 表格样式优化 */
+.table-custom th,
+.table-custom td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.table-custom tr:hover {
+  background-color: #f3f4f6;
+}
+
+/* 卡片样式优化 */
+.card-custom {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.card-custom img {
   transition: transform 0.5s ease;
 }
 
-.card-hover:hover img {
+.card-custom:hover img {
   transform: scale(1.1);
+}
+
+/* 法律提示框样式 */
+.alert-warning {
+  background-color: rgba(166, 36, 36, 0.2);
+  border: 1px solid rgba(166, 36, 36, 0.4);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+}
+
+/* 页脚样式 */
+.footer-custom {
+  background-color: var(--poker-dark);
+  border-top: 1px solid #374151;
+  color: #9ca3af;
+}
+
+/* 返回顶部按钮样式 */
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: var(--poker-green);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
 }
