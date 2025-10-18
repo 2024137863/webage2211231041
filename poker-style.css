@@ -1,0 +1,111 @@
+/* 引入外部资源 */
+@import url('https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css');
+
+/* Tailwind 配置扩展（实际项目中需配合Tailwind配置文件使用） */
+:root {
+  --poker-green: #0F5132;
+  --poker-dark: #1A2421;
+  --poker-gold: #D4AF37;
+  --poker-cream: #F5F1E4;
+  --poker-red: #A62424;
+}
+
+/* 基础样式 */
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--poker-cream);
+  color: var(--poker-dark);
+}
+
+/* 自定义工具类 */
+.text-shadow {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* 动画效果 */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .md\:hidden {
+    display: none;
+  }
+  
+  .md\:flex {
+    display: flex;
+  }
+  
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .hidden {
+    display: none;
+  }
+  
+  .md\:block {
+    display: block;
+  }
+  
+  .md\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  
+  .md\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  
+  .md\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* 组件样式补充 */
+#navbar {
+  transition: all 0.3s ease;
+}
+
+#backToTop {
+  transition: all 0.3s ease;
+}
+
+section > div > div:not(.text-center) {
+  transition: all 1s ease;
+}
+
+/* 卡片图片悬停效果 */
+.card-hover img {
+  transition: transform 0.5s ease;
+}
+
+.card-hover:hover img {
+  transform: scale(1.1);
+}
